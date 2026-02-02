@@ -1,0 +1,35 @@
+plugins {
+  id 'application'
+}
+
+repositories {
+  mavenCentral()
+}
+
+def luceneVersion = (findProperty('luceneVersion') ?: '10.3.2').toString()
+
+dependencies {
+  implementation "org.apache.lucene:lucene-core:${luceneVersion}"
+  implementation "org.apache.lucene:lucene-analysis-common:${luceneVersion}"
+}
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(25)
+  }
+}
+
+tasks.withType(JavaCompile).configureEach {
+  options.release = 25
+}
+
+application {
+  mainClass = 'bench.DisMaxConstantScoreBench'
+}
+
+tasks.withType(JavaExec).configureEach {
+  javaLauncher = javaToolchains.launcherFor {
+    languageVersion = JavaLanguageVersion.of(25)
+  }
+  jvmArgs '-Xms1g', '-Xmx1g'
+}
