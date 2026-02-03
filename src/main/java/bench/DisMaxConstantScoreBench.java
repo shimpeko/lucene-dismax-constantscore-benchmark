@@ -38,10 +38,10 @@ public class DisMaxConstantScoreBench {
       "chocoloatw"
   };
 
-  private static final int DOC_COUNT = 5000;
-  private static final int WARMUP_ITERS = 200;
-  private static final int MEASURE_ITERS = 1000;
-  private static final int TOP_K = 10;
+  private static final int DOC_COUNT = 10000;
+  private static final int WARMUP_ITERS = 100;
+  private static final int MEASURE_ITERS = 5000;
+  private static final int TOP_K = 20;
 
   public static void main(String[] args) throws Exception {
     System.out.println("Lucene version: " + Version.LATEST);
