@@ -12,6 +12,7 @@ def luceneVersion = (findProperty('luceneVersion') ?: '10.3.2').toString()
 dependencies {
   implementation "org.apache.lucene:lucene-core:${luceneVersion}"
   implementation "org.apache.lucene:lucene-analysis-common:${luceneVersion}"
+  implementation "com.fasterxml.jackson.core:jackson-databind:2.18.2"
 }
 
 java {
@@ -32,5 +33,20 @@ tasks.withType(JavaExec).configureEach {
   javaLauncher = javaToolchains.launcherFor {
     languageVersion = JavaLanguageVersion.of(25)
   }
-  jvmArgs '-Xms1g', '-Xmx1g'
+  jvmArgs '-Xms4g', '-Xmx4g'
+  if (project.hasProperty('datasetPath')) {
+    systemProperty 'datasetPath', project.property('datasetPath')
+  }
+  if (project.hasProperty('termMode')) {
+    systemProperty 'termMode', project.property('termMode')
+  }
+  if (project.hasProperty('dismax')) {
+    systemProperty 'dismax', project.property('dismax')
+  }
+  if (project.hasProperty('termCount')) {
+    systemProperty 'termCount', project.property('termCount')
+  }
+  if (project.hasProperty('printDocFreq')) {
+    systemProperty 'printDocFreq', project.property('printDocFreq')
+  }
 }
